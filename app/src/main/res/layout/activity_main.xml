@@ -9,7 +9,7 @@
     tools:context="com.codeclan.amymorrison.toptrumps.MainActivity">
 
     <ImageView
-        android:id="@+id/dealer_holeCardView"
+        android:id="@+id/dealer_firstCardView"
         android:layout_width="80dp"
         android:layout_height="100dp"
         android:layout_marginStart="68dp"
@@ -19,7 +19,7 @@
         app:srcCompat="@drawable/dealer_card_back" />
 
     <ImageView
-        android:id="@+id/dealer_firstCardView"
+        android:id="@+id/dealer_holeCardView"
         android:layout_width="80dp"
         android:layout_height="100dp"
         android:layout_marginStart="216dp"
@@ -106,6 +106,34 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.974"
         tools:layout_editor_absoluteX="16dp" />
+
+    <TextView
+        android:id="@+id/who_won_txtView"
+        android:layout_width="146dp"
+        android:layout_height="47dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text=""
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.415" />
+
+    <GridView
+        android:id="@+id/dealer_card_grid"
+        android:layout_width="367dp"
+        android:layout_height="157dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:numColumns="5"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </android.support.constraint.ConstraintLayout>

@@ -41,20 +41,22 @@ public class Blackjack {
         player.drawCard(dealer.dealCard());
     }
 
-    public Player whoWon(){
+    public String whoWon(){
+
+        //changed from objects to string to make controller happy
         if (player.isBust())
-            return dealer;
+            return "You lost! Dealer wins!";
         else if (dealer.checkFiveCardTrick()){
-                return dealer;
+                return "You lost! Dealer wins!";
             }
         else if (player.checkFiveCardTrick()) {
-                return player;
+                return "Player wins!";
             }
         else if (player.calculateHandValue() >= dealer.calculateHandValue()){
-            return player;
+            return "Player wins!";
 
         } else {
-            return dealer;
+            return "Dealer wins!";
         }
 
     }
