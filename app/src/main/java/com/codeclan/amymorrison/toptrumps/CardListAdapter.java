@@ -51,6 +51,11 @@ public class CardListAdapter extends RecyclerView.Adapter<CardListAdapter.ViewHo
         return this.cards.size();
     }
 
+    public void insertItem(Card newCard){
+        cards.add(newCard);
+        notifyItemInserted(getItemCount());
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
         public ImageView cardImageView;
 

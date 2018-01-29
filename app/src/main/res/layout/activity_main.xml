@@ -8,6 +8,26 @@
     android:tileMode="repeat"
     tools:context="com.codeclan.amymorrison.toptrumps.MainActivity">
 
+    <ImageView
+        android:id="@+id/dealer_holeCardView"
+        android:layout_width="80dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="68dp"
+        android:layout_marginTop="64dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/dealer_card_back" />
+
+    <ImageView
+        android:id="@+id/dealer_firstCardView"
+        android:layout_width="80dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="216dp"
+        android:layout_marginTop="64dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/dealer_card_back" />
+
     <Button
         android:id="@+id/play_btn"
         android:layout_width="wrap_content"
@@ -22,69 +42,70 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.067" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/hit_btn"
-        android:layout_width="60dp"
-        android:layout_height="26dp"
-        android:layout_marginBottom="68dp"
-        android:layout_marginStart="76dp"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="8dp"
         android:onClick="hit"
         android:text="Hit"
         android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintBottom_toTopOf="@+id/card_list_view_in_fragment"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.112"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dealer_holeCardView"
+        app:layout_constraintVertical_bias="0.202" />
 
     <Button
         android:id="@+id/stand_btn"
-        android:layout_width="55dp"
-        android:layout_height="25dp"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:onClick="stand"
         android:text="Stand"
         android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/card_list_view_in_fragment"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.406"
+        app:layout_constraintHorizontal_bias="0.646"
         app:layout_constraintStart_toEndOf="@+id/hit_btn"
-        tools:layout_editor_absoluteY="379dp" />
+        app:layout_constraintTop_toBottomOf="@+id/dealer_firstCardView"
+        app:layout_constraintVertical_bias="0.195" />
 
     <!--<fragment-->
-    <!--android:id="@+id/fragment"-->
-    <!--android:name="com.codeclan.amymorrison.toptrumps.PlayerHandFragment"-->
-    <!--android:layout_width="359dp"-->
-    <!--android:layout_height="279dp"-->
-    <!--android:layout_marginBottom="8dp"-->
-    <!--android:layout_marginEnd="8dp"-->
-    <!--android:layout_marginStart="8dp"-->
-    <!--android:layout_marginTop="8dp"-->
-    <!--app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--app:layout_constraintEnd_toEndOf="parent"-->
-    <!--app:layout_constraintHorizontal_bias="0.555"-->
-    <!--app:layout_constraintStart_toStartOf="parent"-->
-    <!--app:layout_constraintTop_toTopOf="parent"-->
-    <!--app:layout_constraintVertical_bias="1.0" />-->
+        <!--android:id="@+id/fragment"-->
+        <!--android:name="com.codeclan.amymorrison.toptrumps.PlayerHandFragment"-->
+        <!--android:layout_width="359dp"-->
+        <!--android:layout_height="279dp"-->
+        <!--android:layout_marginBottom="8dp"-->
+        <!--android:layout_marginEnd="8dp"-->
+        <!--android:layout_marginStart="8dp"-->
+        <!--android:layout_marginTop="8dp"-->
+        <!--app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--app:layout_constraintHorizontal_bias="0.555"-->
+        <!--app:layout_constraintStart_toStartOf="parent"-->
+        <!--app:layout_constraintTop_toTopOf="parent"-->
+        <!--app:layout_constraintVertical_bias="1.0" />-->
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/player_card_list"
+        android:id="@+id/card_list_view_in_fragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/play_btn"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/dealer_card_list"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-
-        app:layout_constraintBottom_toTopOf="@+id/play_btn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.974"
+        tools:layout_editor_absoluteX="16dp" />
 
 
 </android.support.constraint.ConstraintLayout>
