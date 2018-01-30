@@ -1,9 +1,15 @@
 package com.codeclan.amymorrison.toptrumps;
 
+import com.codeclan.amymorrison.toptrumps.deck.Card;
+import com.codeclan.amymorrison.toptrumps.deck.CardImage;
+import com.codeclan.amymorrison.toptrumps.deck.Rank;
+import com.codeclan.amymorrison.toptrumps.deck.Suit;
+import com.codeclan.amymorrison.toptrumps.gamelogic.Blackjack;
+import com.codeclan.amymorrison.toptrumps.gamelogic.Dealer;
+import com.codeclan.amymorrison.toptrumps.gamelogic.Player;
+
 import org.junit.Before;
 import org.junit.Test;
-
-import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
 

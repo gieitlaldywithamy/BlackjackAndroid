@@ -1,25 +1,27 @@
-package com.codeclan.amymorrison.toptrumps;
+package com.codeclan.amymorrison.toptrumps.controllers;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
+import com.codeclan.amymorrison.toptrumps.R;
+import com.codeclan.amymorrison.toptrumps.deck.Card;
+import com.codeclan.amymorrison.toptrumps.gamelogic.Blackjack;
+import com.codeclan.amymorrison.toptrumps.gamelogic.Dealer;
+import com.codeclan.amymorrison.toptrumps.gamelogic.Player;
 
 import java.util.ArrayList;
 

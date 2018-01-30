@@ -1,6 +1,7 @@
-package com.codeclan.amymorrison.toptrumps;
+package com.codeclan.amymorrison.toptrumps.gamelogic;
 
-import java.util.ArrayList;
+import com.codeclan.amymorrison.toptrumps.Player;
+import com.codeclan.amymorrison.toptrumps.deck.Deck;
 
 /**
  * Created by amymorrison on 26/01/2018.

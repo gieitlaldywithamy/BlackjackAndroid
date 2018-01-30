@@ -1,10 +1,14 @@
-package com.codeclan.amymorrison.toptrumps;
+package com.codeclan.amymorrison.toptrumps.gamelogic;
+
+import com.codeclan.amymorrison.toptrumps.deck.Card;
+import com.codeclan.amymorrison.toptrumps.deck.Deck;
+import com.codeclan.amymorrison.toptrumps.gamelogic.Player;
 
 /**
  * Created by amymorrison on 27/01/2018.
  */
 
-public class Dealer extends Player{
+public class Dealer extends Player {
 
     private Deck deck;
 

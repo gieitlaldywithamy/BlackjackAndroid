@@ -1,5 +1,11 @@
 package com.codeclan.amymorrison.toptrumps;
 
+import com.codeclan.amymorrison.toptrumps.deck.Card;
+import com.codeclan.amymorrison.toptrumps.deck.CardImage;
+import com.codeclan.amymorrison.toptrumps.deck.Deck;
+import com.codeclan.amymorrison.toptrumps.deck.Rank;
+import com.codeclan.amymorrison.toptrumps.deck.Suit;
+
 import org.junit.Before;
 import org.junit.Test;
 

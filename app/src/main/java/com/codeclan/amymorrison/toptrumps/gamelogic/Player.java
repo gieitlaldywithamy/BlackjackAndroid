@@ -1,4 +1,7 @@
-package com.codeclan.amymorrison.toptrumps;
+package com.codeclan.amymorrison.toptrumps.gamelogic;
+
+import com.codeclan.amymorrison.toptrumps.deck.Card;
+import com.codeclan.amymorrison.toptrumps.deck.Rank;
 
 import java.util.ArrayList;
 

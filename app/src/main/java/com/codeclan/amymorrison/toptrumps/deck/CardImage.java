@@ -1,4 +1,6 @@
-package com.codeclan.amymorrison.toptrumps;
+package com.codeclan.amymorrison.toptrumps.deck;
+
+import com.codeclan.amymorrison.toptrumps.R;
 
 /**
  * Created by amymorrison on 26/01/2018.

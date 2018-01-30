@@ -1,4 +1,4 @@
-package com.codeclan.amymorrison.toptrumps;
+package com.codeclan.amymorrison.toptrumps.deck;
 
 /**
  * Created by amymorrison on 26/01/2018.

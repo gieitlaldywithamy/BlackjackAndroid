@@ -1,4 +1,4 @@
-package com.codeclan.amymorrison.toptrumps;
+package com.codeclan.amymorrison.toptrumps.controllers;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -6,6 +6,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+
+import com.codeclan.amymorrison.toptrumps.R;
+import com.codeclan.amymorrison.toptrumps.deck.Card;
 
 import java.util.ArrayList;
 

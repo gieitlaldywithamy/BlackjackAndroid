@@ -1,6 +1,5 @@
-package com.codeclan.amymorrison.toptrumps;
+package com.codeclan.amymorrison.toptrumps.deck;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 
