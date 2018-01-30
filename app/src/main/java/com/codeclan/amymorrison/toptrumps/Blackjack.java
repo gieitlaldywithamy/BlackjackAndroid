@@ -18,6 +18,11 @@ public class Blackjack {
         this.dealer = new Dealer(this.deck);
     }
 
+    public void newGame(){
+        this.player.emptyHand();
+        this.dealer.emptyHand();
+    }
+
     public Dealer getDealer(){
         return this.dealer;
     }

@@ -215,8 +215,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void new_game(MenuItem item) {
-        player.emptyHand();
-        dealer.emptyHand();
+        blackjack.newGame();
+//        player.emptyHand();
+//        dealer.emptyHand();
         playerHand = player.getPlayerHand();
         dealerHand = dealer.getPlayerHand();
         playerHandAdapter.refresh(playerHand);
@@ -224,6 +225,7 @@ public class MainActivity extends AppCompatActivity {
         playerBetView.setText(String.format("£%d",0));
         play.setVisibility(View.VISIBLE);
 
-
     }
+
+
 }

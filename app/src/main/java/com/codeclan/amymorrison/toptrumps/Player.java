@@ -36,6 +36,23 @@ class Player {
         return this.wallet;
     }
 
+    public boolean handContainsAce(){
+        boolean containsAce = false;
+        for (Card card: this.hand){
+            if (card.getRank().equals(Rank.ACE))
+                containsAce = true;
+        }
+        return containsAce;
+    }
+
+    public int countAces(){
+        int aces = 0;
+        for (Card card: this.hand){
+            if (card.getRank().equals(Rank.ACE))
+                aces++;
+        }
+        return aces;
+    }
     public void increaseWinnings(int bettingWinnings){
         this.winnings += bettingWinnings;
     }
@@ -49,7 +66,9 @@ class Player {
 
     public boolean isBust(){
         //change ace stuff here
-        return calculateHandValue() > 21;
+
+        return (calculateHandValue()-(10*countAces())) > 21;
+
     }
 
     public void drawCard(Card card){

@@ -22,4 +22,8 @@ public class Dealer extends Player{
         }
         return null;
     }
+
+    public boolean shouldHit() {
+        return calculateHandValue() <= 16;
+    }
 }

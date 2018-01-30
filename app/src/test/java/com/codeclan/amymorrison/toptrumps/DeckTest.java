@@ -3,6 +3,7 @@ package com.codeclan.amymorrison.toptrumps;
 import org.junit.Before;
 import org.junit.Test;
 
+import static junit.framework.TestCase.assertFalse;
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -30,9 +31,6 @@ public class DeckTest {
 
     @Test
     public void deckHasImages(){
-        for (Card card: cardDeck.getCards()){
-            System.out.println(card.prettyName());
-        }
 
         assertEquals(R.drawable.clubstwo, cardDeck.getCards().get(6).getImageUrl());
     }
@@ -47,10 +45,7 @@ public class DeckTest {
     @Test
     public void canShuffleDeck(){
         cardDeck.shuffle();
-        for (Card card: cardDeck.getCards()){
-            System.out.println("shuffled:");
-            System.out.println(card.prettyName());
-        }
+        assertFalse(cardDeck.equals(new Deck()));
     }
 
     @Test

@@ -6,7 +6,7 @@ package com.codeclan.amymorrison.toptrumps;
 
 public enum Rank {
 
-    ACE(1),
+    ACE(11),
     //how to handle ace?
     TWO(2),
     THREE(3),
