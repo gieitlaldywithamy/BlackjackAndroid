@@ -10,10 +10,14 @@ class Player {
 
     private ArrayList<Card> hand;
     private int handScore;
+    private int winnings;
+    private int wallet;
 
     public Player(){
        hand = new ArrayList<>();
        handScore = 0;
+       this.winnings = 0;
+       this.wallet = 100;
     }
 
     public ArrayList<Card> getPlayerHand(){
@@ -24,6 +28,17 @@ class Player {
         this.hand = new ArrayList<>();
     }
 
+    public void spendMoney(int value){
+        this.wallet -= value;
+    }
+
+    public int getWallet(){
+        return this.wallet;
+    }
+
+    public void increaseWinnings(int bettingWinnings){
+        this.winnings += bettingWinnings;
+    }
     public boolean hasBlackJack(){
         return calculateHandValue()==21;
     }

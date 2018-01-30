@@ -1,5 +1,7 @@
 package com.codeclan.amymorrison.toptrumps;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -44,82 +46,82 @@ public class MainActivity extends AppCompatActivity {
     DealerCardAdapter dealerHandAdapter;
 
     GridView dealerCardDisplay;
-    TextView gameResult;
     TextView bank;
+    TextView cash;
     int dealerHoleCardTrueValue;
     boolean hasDealerRevealedHoleCard;
     int currentBet;
+
+    SharedPreferences sharedPref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-       actionBar = findViewById(R.id.bet_toolbar);
-//
-        setSupportActionBar(actionBar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
-        play = findViewById(R.id.play_btn);
-        hitBtn = findViewById(R.id.hit_btn);
-        standBtn = findViewById(R.id.stand_btn);
-        gameResult = findViewById(R.id.who_won_txtView);
+        initialiseViews();
 
-        placeBetLabel = findViewById(R.id.place_bet_txtView);
-        playerHand = new ArrayList<>();
-        dealerHand = new ArrayList<>();
-//        dealerHand.add(new Card(Suit.DIAMONDS, Rank.TEN, CardImage.EIGHTSPADES));
-        dealerHandAdapter = new DealerCardAdapter(this, dealerHand);
-        dealerCardDisplay = findViewById(R.id.dealer_card_grid);
-        dealerCardDisplay.setAdapter(dealerHandAdapter);
-//        playerFirstCardView = findViewById(R.id.player_firstCardImage);
-//        playerSecondCardView = findViewById(R.id.player_secondCardImage);
-        playerBetBtn = findViewById(R.id.bet_button_view);
+        sharedPref = getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+        int wonSoFar = sharedPref.getInt("winnings", 0);
+        bank.setText(String.format("£%d",wonSoFar));
 
-        playerBetView = findViewById(R.id.playerBetView);
-        playerBetView.setText(String.format("£%d",0));
-        bank = findViewById(R.id.playerBankView);
-        bank.setText(String.format("£%d",0));
         player = new Player();
         blackjack = new Blackjack(player);
         dealer = blackjack.getDealer();
+        //changing player reference - need to change
+        player = blackjack.getPlayer();
 
+        dealerHandAdapter = new DealerCardAdapter(this, dealer.getPlayerHand());
+        dealerCardDisplay.setAdapter(dealerHandAdapter);
 
-
-
-        Log.d(getClass().toString(),"Fragment is being created");
-//        playerHand.add(new Card(Suit.CLUBS, Rank.ACE, CardImage.EIGHTSPADES));
-//        playerHand.add(new Card(Suit.DIAMONDS, Rank.EIGHT, CardImage.ACEHEARTS));
-//        View rootView = inflater.inflate(R.layout.fragment_card_view, container, false);
-        playerCardListDisplay = findViewById(R.id.card_list_view_in_fragment);
         layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false );
-
-        playerHandAdapter = new CardListAdapter(this, playerHand);
-//        dealerHandAdapter = new CardListAdapter(this, dealerHand);
+        playerHandAdapter = new CardListAdapter(this, player.getPlayerHand());
         playerCardListDisplay.setAdapter(playerHandAdapter);
         playerCardListDisplay.setLayoutManager(layoutManager);
         playerCardListDisplay.setNestedScrollingEnabled(false);
-//        playerCardListDisplay.addItemDecoration(new HorizontalSpaceItemDecoration);
 
-//        layoutManager.canScrollHorizontally(false);
+    }
+
+    private void initialiseViews(){
+        actionBar = findViewById(R.id.bet_toolbar);
+        setSupportActionBar(actionBar);
+        //hides default title
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+        play = findViewById(R.id.play_btn);
+        hitBtn = findViewById(R.id.hit_btn);
+        standBtn = findViewById(R.id.stand_btn);
+        playerBetBtn = findViewById(R.id.bet_button_view);
+
+
+        bank = findViewById(R.id.playerBankView);
+        cash = findViewById(R.id.playerCashView);
+        playerBetView = findViewById(R.id.playerBetView);
+        playerBetView.setText(String.format("£%d",0));
+
+        dealerCardDisplay = findViewById(R.id.dealer_card_grid);
+        playerCardListDisplay = findViewById(R.id.card_list_view_in_fragment);
 
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main_menu, menu);
         return true;
     }
 
     public void play(View view) {
-        if (Integer.valueOf(playerBetView.getText().toString().substring(1)) > 5) {
+        if (Integer.valueOf(playerBetView.getText().toString().substring(1)) >= 5) {
 
+            player.spendMoney(Integer.valueOf(playerBetView.getText().toString().substring(1)));
+            cash.setText(player.getWallet());
             play.setVisibility(View.INVISIBLE);
 
             blackjack.shuffleDeck();
             blackjack.initialDeal();
-            dealerHand = blackjack.getDealer().getPlayerHand();
-            playerHand = blackjack.getPlayer().getPlayerHand();
+            //changing this!!
+            dealerHand = dealer.getPlayerHand();
+            playerHand = player.getPlayerHand();
             dealerHoleCardTrueValue = dealerHand.get(1).setImageUrl(R.drawable.dealer_card_back);
             //only one of these images should be visible right now, but stay the same card, change the resource! confused
 
@@ -145,31 +147,24 @@ public class MainActivity extends AppCompatActivity {
         hitBtn.setVisibility(View.INVISIBLE);
         standBtn.setVisibility(View.INVISIBLE);
         play.setVisibility(View.INVISIBLE);
-        gameResult.setVisibility(View.VISIBLE);
-        gameResult.setText(blackjack.whoWon().toString());
+
         Player winner = blackjack.getWinner();
-        if (winner.equals(blackjack.getPlayer())){
+        String result = blackjack.whoWon();
+        Toast.makeText(MainActivity.this, result, Toast.LENGTH_LONG).show();
+        if (winner.equals(player)){
             int bet = Integer.valueOf(playerBetView.getText().toString().substring(1));
             int banked = Integer.valueOf(bank.getText().toString().substring(1));
+            player.increaseWinnings(bet);
             bank.setText(String.format("£%d",banked+bet));
-
+            SharedPreferences.Editor editor = sharedPref.edit();
+            int previousWinnings = sharedPref.getInt("winnings", 0);
+            editor.putInt("winnings", previousWinnings+bet);
+            editor.apply();
         }
+
     }
 
-//    @Override
-//    public void setActionBar(String heading) {
-//        // TODO Auto-generated method stub
-//
-//        com.codeclan.amymorrison.toptrumps.ActionBar actionBar = getSupportActionBar();
-//
-//        actionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.title_bar_gray)));
-//        actionBar.setTitle(heading);
-//        actionBar.show();
-//
-//    }
-
     private boolean dealerTurnOverHoleCard(){
-        Log.d(getClass().toString(), "Checking if dealer has all cards visible or not");
 
         //WHY NOT PERMANENTLY?!?
         dealerHand.get(1).setImageUrl(dealerHoleCardTrueValue);
@@ -184,32 +179,16 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    private void newTurn(){
-
-        if (player.isBust()) {
-            gameFinish();
-        }
-
-        if (dealer.calculateHandValue() < 17) {
-            dealer.drawCard(dealer.dealCard());
-            dealerHandAdapter.refresh(dealer.getPlayerHand());
-        }
-        if (dealer.isBust()){
-            gameFinish();
-        }
-
-    }
 
     public void hit(View view) {
         player.drawCard(dealer.dealCard());
-        playerHand = blackjack.getPlayer().getPlayerHand();
+        playerHand = player.getPlayerHand();
         playerHandAdapter.refresh(playerHand);
         if (!dealerTurnOverHoleCard()) {
             dealerTurnOverHoleCard();
             hasDealerRevealedHoleCard = true;
         }
         if (player.isBust() || player.hasBlackJack()) {
-            //doesnt work
             gameFinish();
         }
     }
@@ -219,10 +198,6 @@ public class MainActivity extends AppCompatActivity {
         if (!dealerTurnOverHoleCard()) {
             dealerTurnOverHoleCard();
             hasDealerRevealedHoleCard = true;
-        }
-
-        if (player.isBust()) {
-            gameFinish();
         }
 
         while (dealer.calculateHandValue() < 17) {
@@ -238,15 +213,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void new_game(MenuItem item) {
-        //blackjack.newDeck();
         player.emptyHand();
         dealer.emptyHand();
-        playerHand = blackjack.getPlayer().getPlayerHand();
-        dealerHand = blackjack.getDealer().getPlayerHand();
+        playerHand = player.getPlayerHand();
+        dealerHand = dealer.getPlayerHand();
         playerHandAdapter.refresh(playerHand);
         dealerHandAdapter.refresh(dealerHand);
-        gameResult.setVisibility(View.INVISIBLE);
-        placeBetLabel.setVisibility(View.VISIBLE);
         playerBetView.setText(String.format("£%d",0));
         play.setVisibility(View.VISIBLE);
 

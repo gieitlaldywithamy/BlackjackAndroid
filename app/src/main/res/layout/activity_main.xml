@@ -29,6 +29,7 @@
         android:id="@+id/hit_btn"
         android:layout_width="100dp"
         android:layout_height="50dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="40dp"
         android:layout_marginTop="8dp"
@@ -37,7 +38,7 @@
         android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/card_list_view_in_fragment"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.114"
+        app:layout_constraintHorizontal_bias="0.131"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/dealer_holeCardView"
         app:layout_constraintVertical_bias="0.202" />
@@ -101,92 +102,95 @@
         android:layout_height="127dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="320dp"
+        android:layout_marginTop="336dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <!--<android.support.v7.widget.Toolbar>-->
-        <!--android:id="@+id/bet_toolbar"-->
-        <!--android:background="@android:color/black"-->
-        <!--android:minHeight="?attr/actionBarSize"-->
-        <!--android:theme="?attr/actionBarTheme"-->
-        <!--app:layout_constraintBottom_toBottomOf="@+id/who_won_txtView"-->
-        <!--app:layout_constraintEnd_toEndOf="parent"-->
-        <!--app:layout_constraintHorizontal_bias="0.0"-->
-        <!--app:layout_constraintStart_toStartOf="parent"-->
-        <!--app:layout_constraintTop_toTopOf="parent"-->
-        <!--app:layout_constraintVertical_bias="0.0"-->
+    <!--android:id="@+id/bet_toolbar"-->
+    <!--android:background="@android:color/black"-->
+    <!--android:minHeight="?attr/actionBarSize"-->
+    <!--android:theme="?attr/actionBarTheme"-->
+    <!--app:layout_constraintBottom_toBottomOf="@+id/who_won_txtView"-->
+    <!--app:layout_constraintEnd_toEndOf="parent"-->
+    <!--app:layout_constraintHorizontal_bias="0.0"-->
+    <!--app:layout_constraintStart_toStartOf="parent"-->
+    <!--app:layout_constraintTop_toTopOf="parent"-->
+    <!--app:layout_constraintVertical_bias="0.0"-->
 
-        <!--<EditText-->
-            <!--android:id="@+id/playerBetView"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:background="#000000" />-->
+    <!--<EditText-->
+    <!--android:id="@+id/playerBetView"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:background="#000000" />-->
     <!--</android.support.v7.widget.Toolbar>-->
 
-    <TextView
-        android:id="@+id/who_won_txtView"
-        android:layout_width="146dp"
-        android:layout_height="47dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text=""
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.508" />
-
-    <GridView
-        android:id="@+id/dealer_card_grid"
-        android:layout_width="360dp"
-        android:layout_height="0dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:numColumns="5"
-        app:layout_constraintBottom_toTopOf="@+id/bet_button_view"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/bet_toolbar"
         android:layout_width="0dp"
         android:layout_height="54dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="16dp"
         android:background="@android:color/transparent"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.473"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/card_list_view_in_fragment" >
+        app:layout_constraintTop_toBottomOf="@id/card_list_view_in_fragment">
+
         <TextView
             android:id="@+id/playerBetViewLabel"
-            android:text="Current bet: "
-            android:textColor="@color/toolbarLabel"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:text="Current bet: "
+            android:textColor="@color/toolbarLabel" />
+
         <TextView
             android:id="@+id/playerBetView"
-            android:textColor="@color/toolbarText"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textColor="@color/toolbarText" />
+
         <TextView
             android:id="@+id/playerBankViewLabel"
-            android:text="Bank: "
-            android:layout_marginLeft="20dp"
-            android:textColor="@color/toolbarLabel"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:text="Bank: "
+            android:textColor="@color/toolbarLabel" />
+
         <TextView
             android:id="@+id/playerBankView"
-            android:textColor="@color/toolbarText"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textColor="@color/toolbarText" />
+
+        <TextView
+            android:id="@+id/playerCashViewLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:text="Cash: "
+            android:textColor="@color/toolbarLabel" />
+
+        <TextView
+            android:id="@+id/playerCashView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/toolbarText" />
     </android.support.v7.widget.Toolbar>
+
+    <GridView
+        android:id="@+id/dealer_card_grid"
+        android:layout_width="360dp"
+        android:layout_height="0dp"
+        android:numColumns="5"
+        app:layout_constraintBottom_toTopOf="@+id/bet_button_view"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:layout_constraintVertical_bias="0.996" />
 
 </android.support.constraint.ConstraintLayout>
