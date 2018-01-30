@@ -52,4 +52,15 @@ public class DeckTest {
             System.out.println(card.prettyName());
         }
     }
+
+    @Test
+    public void deckHasFourAces(){
+        int count = 0;
+        for (Card card: cardDeck.getCards()){
+            if (card.getRank().equals(Rank.ACE)){
+                count++;
+            }
+        }
+        assertEquals(4, count);
+    }
 }

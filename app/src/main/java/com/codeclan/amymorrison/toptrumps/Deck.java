@@ -33,7 +33,6 @@ public class Deck {
     }
 
     public LinkedList<Card> getCards() {
-        System.out.println();
         return this.cards;
     }
 

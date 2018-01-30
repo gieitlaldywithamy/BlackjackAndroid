@@ -70,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
         dealer = blackjack.getDealer();
         //changing player reference - need to change
         player = blackjack.getPlayer();
+        cash.setText(String.format("£%d", player.getWallet()));
 
         dealerHandAdapter = new DealerCardAdapter(this, dealer.getPlayerHand());
         dealerCardDisplay.setAdapter(dealerHandAdapter);
@@ -114,9 +115,9 @@ public class MainActivity extends AppCompatActivity {
         if (Integer.valueOf(playerBetView.getText().toString().substring(1)) >= 5) {
 
             player.spendMoney(Integer.valueOf(playerBetView.getText().toString().substring(1)));
-            cash.setText(player.getWallet());
-            play.setVisibility(View.INVISIBLE);
 
+            play.setVisibility(View.INVISIBLE);
+            cash.setText(String.format("£%d", player.getWallet()));
             blackjack.shuffleDeck();
             blackjack.initialDeal();
             //changing this!!
@@ -154,7 +155,8 @@ public class MainActivity extends AppCompatActivity {
         if (winner.equals(player)){
             int bet = Integer.valueOf(playerBetView.getText().toString().substring(1));
             int banked = Integer.valueOf(bank.getText().toString().substring(1));
-            player.increaseWinnings(bet);
+            player.increaseWinnings(bet*2);
+            cash.setText(String.format(String.format("£%d", player.getWallet())));
             bank.setText(String.format("£%d",banked+bet));
             SharedPreferences.Editor editor = sharedPref.edit();
             int previousWinnings = sharedPref.getInt("winnings", 0);
