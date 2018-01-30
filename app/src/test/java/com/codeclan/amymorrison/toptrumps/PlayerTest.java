@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -58,6 +59,31 @@ public class PlayerTest {
         player.drawCard(card1);
         player.drawCard(card3);
         assertEquals(17, player.calculateHandValue());
+    }
+
+    @Test
+    public void playerIsBust(){
+        player.drawCard(card1);
+        player.drawCard(card2);
+        player.drawCard(card3);
+        assertTrue(player.isBust());
+    }
+
+    @Test
+    public void playerIsntBustBeecauseAce(){
+        player.drawCard(card1);
+        player.drawCard(card2);
+        player.drawCard(ace2);
+        assertFalse(player.isBust());
+    }
+
+    @Test
+    public void playerMultipleAceValue(){
+        player.drawCard(card1);
+        player.drawCard(card2);
+        player.drawCard(ace2);
+        player.drawCard(ace1);
+        assertFalse(player.isBust());
     }
 
 
