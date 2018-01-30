@@ -20,6 +20,10 @@ class Player {
         return this.hand;
     }
 
+    public void emptyHand(){
+        this.hand = new ArrayList<>();
+    }
+
     public boolean hasBlackJack(){
         return calculateHandValue()==21;
     }

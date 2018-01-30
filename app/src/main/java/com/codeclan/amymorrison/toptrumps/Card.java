@@ -35,6 +35,12 @@ public class Card {
         return this.imageId;
     }
 
+    public int setImageUrl(int drawableID) {
+        int realCardValue = getImageUrl();
+        this.imageId = drawableID;
+        return realCardValue;
+    }
+
     public int getValue() {
 
         //get checked

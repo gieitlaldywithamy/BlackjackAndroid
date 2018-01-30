@@ -46,6 +46,9 @@ public class Blackjack {
         //changed from objects to string to make controller happy
         if (player.isBust())
             return "You lost! Dealer wins!";
+        else if(dealer.isBust()){
+            return "You won!";
+        }
         else if (dealer.checkFiveCardTrick()){
                 return "You lost! Dealer wins!";
             }
@@ -59,5 +62,29 @@ public class Blackjack {
             return "Dealer wins!";
         }
 
+    }
+
+    public Player getWinner() {
+        if (player.isBust())
+            return dealer;
+        else if (dealer.isBust()) {
+            return player;
+        }
+        else if (dealer.checkFiveCardTrick()){
+            return dealer;
+        }
+        else if (player.checkFiveCardTrick()) {
+            return player;
+        }
+        else if (player.calculateHandValue() >= dealer.calculateHandValue()){
+            return player;
+
+        } else {
+            return dealer;
+        }
+    }
+
+    public void newDeck() {
+        this.deck = new Deck();
     }
 }

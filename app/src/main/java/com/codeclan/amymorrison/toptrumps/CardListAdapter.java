@@ -45,6 +45,11 @@ public class CardListAdapter extends RecyclerView.Adapter<CardListAdapter.ViewHo
         holder.cardImageView.setImageResource(currentCard.getImageUrl());
     }
 
+    public void refresh(ArrayList<Card> cards)
+    {
+        this.cards = cards;
+        notifyDataSetChanged();
+    }
 
     @Override
     public int getItemCount() {
