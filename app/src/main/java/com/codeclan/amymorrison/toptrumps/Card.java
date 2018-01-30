@@ -48,6 +48,6 @@ public class Card {
     }
 
     public String prettyName(){
-        return rank.toString() + " of " + suit.toString();
+        return rank.toString().toLowerCase() + " of " + suit.toString().toLowerCase();
     }
 }
