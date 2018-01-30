@@ -36,17 +36,14 @@ public class BlackjackTest {
     @Test
     public void canGetPlayerValue(){
         game.initialDeal();
-        assertEquals(2, player.calculateHandValue());
-        ArrayList<Card> playerHand = player.getPlayerHand();
-        for (Card card: playerHand){
-            System.out.println(card + "dd");
-        }
+        assertEquals(22, player.calculateHandValue());
+
     }
 
     @Test
     public void canGetHandScore(){
         game.initialDeal();
-        assertEquals(2, player.calculateHandValue());
+        assertEquals(22, player.calculateHandValue());
     }
 
     @Test
@@ -54,6 +51,14 @@ public class BlackjackTest {
         player.drawCard(three);
         player.drawCard(eight);
         player.drawCard(ten);
-        assertEquals(player, game.whoWon());
+        assertEquals(player, game.getWinner());
+    }
+
+    @Test
+    public void startNewGame(){
+        player.drawCard(three);
+        player.drawCard(ten);
+        game.newGame();
+        assertEquals(0, player.getPlayerHand().size());
     }
 }
