@@ -28,6 +28,12 @@ public class Dealer extends Player {
     }
 
     public boolean shouldHit() {
-        return calculateHandValue() <= 16;
+        return value() <= 16;
+    }
+
+    public void move() {
+        while (shouldHit()){
+            drawCard(dealCard());
+        }
     }
 }

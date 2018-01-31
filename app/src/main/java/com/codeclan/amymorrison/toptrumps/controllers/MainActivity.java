@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
         standBtn = findViewById(R.id.stand_btn);
         playerBetBtn = findViewById(R.id.bet_button_view);
         cashOut = findViewById(R.id.cash_out_btn);
-        doubleBtn = findViewById(R.id.double_down_btn);
+
 
         //toolbar
         bank = findViewById(R.id.playerBankView);
@@ -236,10 +236,10 @@ public class MainActivity extends AppCompatActivity {
         if (!hasDealerRevealedHoleCard) {
             dealerTurnOverHoleCard();
         }
-        while (dealer.calculateHandValue() < 17) {
-            dealer.drawCard(dealer.dealCard());
-            dealerHandAdapter.refresh(dealer.getPlayerHand());
-        }
+        dealer.move();
+
+        dealerHandAdapter.refresh(dealer.getPlayerHand());
+
         gameFinish();
     }
 
