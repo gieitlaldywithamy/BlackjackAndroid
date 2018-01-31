@@ -1,6 +1,6 @@
 package com.codeclan.amymorrison.toptrumps.gamelogic;
 
-import com.codeclan.amymorrison.toptrumps.Player;
+import com.codeclan.amymorrison.toptrumps.gamelogic.Player;
 import com.codeclan.amymorrison.toptrumps.deck.Deck;
 
 /**
@@ -13,8 +13,8 @@ public class Blackjack {
     private Dealer dealer;
     private Deck deck;
 
-    public Blackjack(Player player){
-        this.player = player;
+    public Blackjack(){
+        this.player = new Player();
         this.deck = new Deck();
         this.dealer = new Dealer(this.deck);
     }

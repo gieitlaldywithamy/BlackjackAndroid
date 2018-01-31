@@ -29,10 +29,11 @@ public class BlackjackTest {
     @Before
     public void before(){
 
-        player = new Player();
 
-        game = new Blackjack(player);
+
+        game = new Blackjack();
         dealer = game.getDealer();
+        player = game.getPlayer();
         three = new Card(Suit.CLUBS, Rank.THREE, CardImage.THREECLUBS);
         eight = new Card(Suit.HEARTS, Rank.EIGHT, CardImage.EIGHTSPADES);
         ten = new Card(Suit.DIAMONDS, Rank.TEN, CardImage.TENCLUBS);

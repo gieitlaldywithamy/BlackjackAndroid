@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * Created by amymorrison on 26/01/2018.
  */
 
-class Player {
+public class Player {
 
     private ArrayList<Card> hand;
     private int handScore;

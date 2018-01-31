@@ -67,8 +67,9 @@ public class MainActivity extends AppCompatActivity {
         int wonSoFar = sharedPref.getInt("winnings", 0);
         bank.setText(String.format("£%d",wonSoFar));
 
-        player = new Player();
-        blackjack = new Blackjack(player);
+
+        blackjack = new Blackjack();
+        player = blackjack.getPlayer();
         dealer = blackjack.getDealer();
         //changing player reference - need to change
         player = blackjack.getPlayer();
