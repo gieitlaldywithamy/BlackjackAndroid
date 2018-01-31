@@ -68,4 +68,5 @@ public class BlackjackTest {
         game.newGame();
         assertEquals(0, player.getPlayerHand().size());
     }
+
 }

@@ -63,17 +63,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         initialiseViews();
 
-        sharedPref = getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
-        int wonSoFar = sharedPref.getInt("winnings", 0);
-        bank.setText(String.format("£%d",wonSoFar));
-
 
         blackjack = new Blackjack();
         player = blackjack.getPlayer();
         dealer = blackjack.getDealer();
-        //changing player reference - need to change
-        player = blackjack.getPlayer();
-        cash.setText(String.format("£%d", player.getWallet()));
+
+        initialiseToolbar();
 
         dealerHandAdapter = new DealerCardAdapter(this, dealer.getPlayerHand());
         dealerCardDisplay.setAdapter(dealerHandAdapter);
@@ -87,22 +82,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initialiseViews(){
-        actionBar = findViewById(R.id.bet_toolbar);
-        setSupportActionBar(actionBar);
-        //hides default title
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
+        //player input
         play = findViewById(R.id.play_btn);
         hitBtn = findViewById(R.id.hit_btn);
         standBtn = findViewById(R.id.stand_btn);
         playerBetBtn = findViewById(R.id.bet_button_view);
 
-
+        //toolbar
         bank = findViewById(R.id.playerBankView);
         cash = findViewById(R.id.playerCashView);
         playerBetView = findViewById(R.id.playerBetView);
-        playerBetView.setText(String.format("£%d",0));
 
+        //card lists
         dealerCardDisplay = findViewById(R.id.dealer_card_grid);
         playerCardListDisplay = findViewById(R.id.card_list_view_in_fragment);
 
@@ -114,13 +106,34 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    public void play(View view) {
-        if (Integer.valueOf(playerBetView.getText().toString().substring(1)) >= 5) {
+    public void initialiseToolbar(){
+        actionBar = findViewById(R.id.bet_toolbar);
+        setSupportActionBar(actionBar);
+        //hides default title
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-            player.spendMoney(Integer.valueOf(playerBetView.getText().toString().substring(1)));
+        sharedPref = getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+        int wonSoFar = sharedPref.getInt("winnings", 0);
+        bank.setText(String.format("£%d",wonSoFar));
+        cash.setText(String.format("£%d", player.getWallet()));
+        playerBetView.setText(String.format("£%d",0));
+    }
+
+    public void updateToolbar(){
+        int playerCurrentBet = player.getBet();
+        int playerWallet = player.getWallet();
+        int playerBanked = sharedPref.getInt("winnings", 0);
+
+        playerBetView.setText(String.format("£%d",playerCurrentBet));
+        bank.setText(String.format("£%d", playerBanked));
+        cash.setText(String.format("£%d", playerWallet));
+    }
+
+    public void play(View view) {
+        if (player.getBet() >= 5) {
 
             play.setVisibility(View.INVISIBLE);
-            cash.setText(String.format("£%d", player.getWallet()));
+
             blackjack.shuffleDeck();
             blackjack.initialDeal();
             //changing this!!
@@ -135,6 +148,7 @@ public class MainActivity extends AppCompatActivity {
 
 
             if (player.hasBlackJack() || dealer.hasBlackJack()) {
+                dealerTurnOverHoleCard();
                 gameFinish();
             } else {
                 hitBtn.setVisibility(View.VISIBLE);
@@ -169,19 +183,14 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private boolean dealerTurnOverHoleCard(){
+    private void dealerTurnOverHoleCard(){
 
-        //WHY NOT PERMANENTLY?!?
         dealerHand.get(1).setImageUrl(dealerHoleCardTrueValue);
         dealerHandAdapter.refresh(dealerHand);
 //        //this is always failing - WHYYY
 //        if (dealerHoleCardView.getDrawable() == getResources().getDrawable(R.drawable.dealer_card_back)) {
-//
-//            Log.d(getClass().toString(), "Dealer hole card being turned over");
-//            dealerHoleCardView.setImageResource(dealerHand.get(1).getImageUrl());
-//        }
-        //dealerHoleCardView.setImageResource(dealerHand.get(1).getImageUrl());
-        return true;
+
+        this.hasDealerRevealedHoleCard = true;
     }
 
 
@@ -189,9 +198,8 @@ public class MainActivity extends AppCompatActivity {
         player.drawCard(dealer.dealCard());
         playerHand = player.getPlayerHand();
         playerHandAdapter.refresh(playerHand);
-        if (!dealerTurnOverHoleCard()) {
+        if (!hasDealerRevealedHoleCard) {
             dealerTurnOverHoleCard();
-            hasDealerRevealedHoleCard = true;
         }
         if (player.isBust() || player.hasBlackJack()) {
             gameFinish();
@@ -200,9 +208,8 @@ public class MainActivity extends AppCompatActivity {
 
     public void stand(View view) {
 
-        if (!dealerTurnOverHoleCard()) {
+        if (!hasDealerRevealedHoleCard) {
             dealerTurnOverHoleCard();
-            hasDealerRevealedHoleCard = true;
         }
         //dealer stands at soft 17
         while (dealer.calculateHandValue() < 17) {
@@ -213,19 +220,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void raiseBet(View view) {
-        currentBet = Integer.valueOf(playerBetView.getText().toString().substring(1));
-        playerBetView.setText(String.format("£%d",currentBet+5));
+        player.raiseBet(5);
+        updateToolbar();
     }
 
     public void new_game(MenuItem item) {
         blackjack.newGame();
-//        player.emptyHand();
-//        dealer.emptyHand();
         playerHand = player.getPlayerHand();
         dealerHand = dealer.getPlayerHand();
         playerHandAdapter.refresh(playerHand);
         dealerHandAdapter.refresh(dealerHand);
-        playerBetView.setText(String.format("£%d",0));
+        updateToolbar();
         play.setVisibility(View.VISIBLE);
 
     }

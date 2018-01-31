@@ -57,6 +57,16 @@ public class PlayerTest {
     }
 
     @Test
+    public void canCountAces() {
+        dealer.drawCard(card1);
+        dealer.drawCard(ace1);
+        dealer.drawCard(card2);
+        dealer.drawCard(ace2);
+        dealer.drawCard(card1);
+        assertEquals(3, player.countAces());
+    }
+
+    @Test
     public void playerCanDrawCard(){
         player.drawCard(card2);
         assertEquals(1, player.getPlayerHand().size());

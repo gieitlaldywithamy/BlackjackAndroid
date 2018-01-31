@@ -15,11 +15,13 @@ public class Player {
     private int handScore;
     private int winnings;
     private int wallet;
+    private int bet;
 
     public Player(){
        hand = new ArrayList<>();
        handScore = 0;
        this.winnings = 0;
+       this.bet = 0;
        this.wallet = 100;
     }
 
@@ -29,6 +31,14 @@ public class Player {
 
     public void emptyHand(){
         this.hand = new ArrayList<>();
+    }
+
+    public void raiseBet(int amount){
+        if (this.wallet - amount > 0) {
+            this.bet += amount;
+            this.wallet -= amount;
+        }
+
     }
 
     public void spendMoney(int value){
@@ -96,4 +106,10 @@ public class Player {
         return (!isBust() && (this.getPlayerHand().size()) == 5);
     }
 
+    protected void setBet(int bet){
+        this.bet = bet;
+    }
+    public int getBet() {
+        return this.bet;
+    }
 }
