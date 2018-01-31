@@ -1,7 +1,9 @@
 package com.codeclan.amymorrison.toptrumps.controllers;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -32,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     Button standBtn;
     Button cashOut;
     ImageButton playerBetBtn;
+    Button doubleBtn;
     TextView playerBetView;
     Toolbar actionBar;
 
@@ -88,6 +91,7 @@ public class MainActivity extends AppCompatActivity {
         standBtn = findViewById(R.id.stand_btn);
         playerBetBtn = findViewById(R.id.bet_button_view);
         cashOut = findViewById(R.id.cash_out_btn);
+        doubleBtn = findViewById(R.id.double_down_btn);
 
         //toolbar
         bank = findViewById(R.id.playerBankView);
@@ -159,6 +163,26 @@ public class MainActivity extends AppCompatActivity {
             } else {
                 hitBtn.setVisibility(View.VISIBLE);
                 standBtn.setVisibility(View.VISIBLE);
+                DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (which){
+                            case DialogInterface.BUTTON_POSITIVE:
+                                double_down();
+                                hitBtn.performClick();
+                                gameFinish();
+                                break;
+
+                            case DialogInterface.BUTTON_NEGATIVE:
+                                doubleBtn.setVisibility(View.INVISIBLE);
+                                break;
+                        }
+                    }
+                };
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+                builder.setMessage("Double down?").setPositiveButton("Yes", dialogClickListener)
+                        .setNegativeButton("No", dialogClickListener).show();
             }
 
         } else {
@@ -256,5 +280,10 @@ public class MainActivity extends AppCompatActivity {
         updateToolbar();
 
 
+    }
+
+    public void double_down() {
+        player.raiseBet(player.getBet()*2);
+        updateToolbar();
     }
 }
