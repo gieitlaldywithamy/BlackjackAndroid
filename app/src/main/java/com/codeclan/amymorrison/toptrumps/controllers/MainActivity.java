@@ -204,7 +204,7 @@ public class MainActivity extends AppCompatActivity {
             dealerTurnOverHoleCard();
             hasDealerRevealedHoleCard = true;
         }
-
+        //dealer stands at soft 17
         while (dealer.calculateHandValue() < 17) {
             dealer.drawCard(dealer.dealCard());
             dealerHandAdapter.refresh(dealer.getPlayerHand());

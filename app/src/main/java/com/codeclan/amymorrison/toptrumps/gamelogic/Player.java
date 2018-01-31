@@ -70,7 +70,7 @@ public class Player {
     public boolean isBust(){
         //change ace stuff here
 
-        return (calculateHandValue()-(10*countAces())) > 21;
+        return calculateHandValue() > 21;
 
     }
 
@@ -82,6 +82,11 @@ public class Player {
         int score = 0;
         for (Card card : this.hand) {
             score += card.getValue();
+        }
+        int aceCounter = countAces();
+        if (score > 21 && aceCounter > 0){
+            score -= 10;
+            aceCounter--;
         }
         this.handScore = score;
         return this.handScore;
