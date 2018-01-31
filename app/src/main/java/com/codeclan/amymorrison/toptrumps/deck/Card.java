@@ -42,8 +42,6 @@ public class Card {
     }
 
     public int getValue() {
-
-        //get checked
         return this.rank.getValue();
     }
 

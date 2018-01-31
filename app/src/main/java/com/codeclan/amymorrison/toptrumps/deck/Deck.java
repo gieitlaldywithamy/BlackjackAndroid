@@ -11,6 +11,7 @@ public class Deck {
 
     LinkedList<Card> cards;
 
+
     public Deck(){
         this.cards = buildDeck();
     }
@@ -35,11 +36,9 @@ public class Deck {
         return this.cards;
     }
 
-    public int getSize() {
+    public int cardCount() {
         return this.cards.size();
     }
-
-
 
     public void shuffle(){
         Collections.shuffle(this.cards);

@@ -43,7 +43,7 @@ public class PlayerTest {
     @Test
     public void handDoesntContainsAce(){
         dealer.drawCard(card2);
-        assertEquals(false, dealer.handContainsAce());
+        assertEquals(false, dealer.getHand().handContainsAce());
     }
 
     @Test
@@ -53,7 +53,7 @@ public class PlayerTest {
         dealer.drawCard(card2);
         dealer.drawCard(ace2);
         dealer.drawCard(card1);
-        assertTrue(dealer.handContainsAce());
+        assertTrue(dealer.getHand().handContainsAce());
     }
 
     @Test
@@ -63,7 +63,7 @@ public class PlayerTest {
         dealer.drawCard(card2);
         dealer.drawCard(ace2);
         dealer.drawCard(card1);
-        assertEquals(2, dealer.aceCount());
+        assertEquals(2, dealer.getHand().aceCount());
     }
 
     @Test

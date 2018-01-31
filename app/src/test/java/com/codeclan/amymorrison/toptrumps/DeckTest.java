@@ -32,7 +32,7 @@ public class DeckTest {
 
     @Test
     public void canGetDeckSize(){
-        assertEquals(52, cardDeck.getSize());
+        assertEquals(52, cardDeck.cardCount());
     }
 
     @Test
@@ -45,7 +45,7 @@ public class DeckTest {
     public void deckCanDealCard(){
         Card topCard = new Card(Suit.values()[0], Rank.values()[0], CardImage.values()[1]);
         assertEquals(topCard.getValue(), cardDeck.removeFirst().getValue());
-        assertEquals(51, cardDeck.getSize());
+        assertEquals(51, cardDeck.cardCount());
     }
 
     @Test

@@ -7,7 +7,6 @@ package com.codeclan.amymorrison.toptrumps.deck;
 public enum Rank {
 
     ACE(11),
-    //how to handle ace?
     TWO(2),
     THREE(3),
     FOUR(4),
@@ -23,11 +22,7 @@ public enum Rank {
 
     private final int value;
 
-    private Rank(int value){
-        this.value = value;
-    }
-
-    private Rank(int value, int highestValue){
+    Rank(int value){
         this.value = value;
     }
 
