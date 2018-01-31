@@ -142,7 +142,6 @@ public class MainActivity extends AppCompatActivity {
 
             blackjack.shuffleDeck();
             blackjack.initialDeal();
-            //changing this!!
             dealerHand = dealer.getPlayerHand();
             playerHand = player.getPlayerHand();
             dealerHoleCardTrueValue = dealerHand.get(1).setImageUrl(R.drawable.dealer_card_back);
@@ -171,7 +170,7 @@ public class MainActivity extends AppCompatActivity {
         play.setVisibility(View.INVISIBLE);
 
         Player winner = blackjack.getWinner();
-        String result = blackjack.whoWon();
+        String result = winner.toString() + " won!";
         Toast.makeText(MainActivity.this, result, Toast.LENGTH_LONG).show();
         if (winner.equals(player)){
 

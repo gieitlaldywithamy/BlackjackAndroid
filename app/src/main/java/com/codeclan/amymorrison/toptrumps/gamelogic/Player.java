@@ -118,4 +118,8 @@ public class Player {
         this.bet = 0;
         this.winnings = 0;
     }
+    @Override
+    public String toString(){
+        return getClass().getSimpleName();
+    }
 }
