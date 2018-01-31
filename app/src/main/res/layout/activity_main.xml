@@ -194,4 +194,18 @@
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
         app:layout_constraintVertical_bias="0.996" />
 
+    <Button
+        android:id="@+id/cash_out_btn"
+        android:layout_width="93dp"
+        android:layout_height="59dp"
+        android:layout_marginBottom="272dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:text="Cash out"
+        android:onClick="player_cash_out"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.487"
+        app:layout_constraintStart_toEndOf="@+id/play_btn" />
+
 </android.support.constraint.ConstraintLayout>

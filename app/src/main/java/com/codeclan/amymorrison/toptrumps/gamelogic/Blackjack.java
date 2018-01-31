@@ -7,7 +7,7 @@ import com.codeclan.amymorrison.toptrumps.deck.Deck;
  * Created by amymorrison on 26/01/2018.
  */
 
-public class Blackjack{
+public class Blackjack {
 
     private Player player;
     private Dealer dealer;

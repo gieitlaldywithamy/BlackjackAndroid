@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
     Button play;
     Button hitBtn;
     Button standBtn;
+    Button cashOut;
     ImageButton playerBetBtn;
     TextView playerBetView;
     Toolbar actionBar;
@@ -86,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
         hitBtn = findViewById(R.id.hit_btn);
         standBtn = findViewById(R.id.stand_btn);
         playerBetBtn = findViewById(R.id.bet_button_view);
+        cashOut = findViewById(R.id.cash_out_btn);
 
         //toolbar
         bank = findViewById(R.id.playerBankView);
@@ -139,6 +141,7 @@ public class MainActivity extends AppCompatActivity {
         if (player.getBet() >= 5) {
 
             play.setVisibility(View.INVISIBLE);
+            toggleMoneyButtonsVisiblity();
 
             blackjack.shuffleDeck();
             blackjack.initialDeal();
@@ -176,6 +179,7 @@ public class MainActivity extends AppCompatActivity {
 
             player.increaseWinnings((player.getBet()*3/2)+player.getBet());
             updateToolbar();
+            cashOut.setVisibility(View.VISIBLE);
         }
 
     }
@@ -220,6 +224,17 @@ public class MainActivity extends AppCompatActivity {
         updateToolbar();
     }
 
+    public void toggleMoneyButtonsVisiblity(){
+        playerBetBtn.setVisibility(View.INVISIBLE);
+        cashOut.setVisibility(View.INVISIBLE);
+    }
+
+    public void toggleGameUIButtons(){
+        play.setVisibility(View.INVISIBLE);
+        hitBtn.setVisibility(View.INVISIBLE);
+        standBtn.setVisibility(View.INVISIBLE);
+    }
+
     public void new_game(MenuItem item) {
         blackjack.newGame();
         playerHand = player.getPlayerHand();
@@ -228,5 +243,18 @@ public class MainActivity extends AppCompatActivity {
         dealerHandAdapter.refresh(dealerHand);
         updateToolbar();
         play.setVisibility(View.VISIBLE);
+        playerBetBtn.setVisibility(View.VISIBLE);
+    }
+
+    public void player_cash_out(View view) {
+        cashOut.setVisibility(View.INVISIBLE);
+        int playerBanked = sharedPref.getInt("winnings", 0);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        player.profit(playerBanked);
+        editor.putInt("winnings", 0);
+        editor.apply();
+        updateToolbar();
+
+
     }
 }

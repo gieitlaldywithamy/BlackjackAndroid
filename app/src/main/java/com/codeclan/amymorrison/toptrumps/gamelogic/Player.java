@@ -122,4 +122,9 @@ public class Player {
     public String toString(){
         return getClass().getSimpleName();
     }
+
+    public void profit(int playerBanked) {
+
+        this.wallet += playerBanked;
+    }
 }
