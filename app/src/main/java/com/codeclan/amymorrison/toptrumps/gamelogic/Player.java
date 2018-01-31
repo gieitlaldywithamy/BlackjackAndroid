@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * Created by amymorrison on 26/01/2018.
  */
 
-public class Player implements IHand {
+public class Player {
 
     private ArrayList<Card> hand;
     private int handScore;
@@ -70,7 +70,7 @@ public class Player implements IHand {
         this.winnings += bettingWinnings;
     }
     public boolean hasBlackJack(){
-        return value()==21;
+        return handValue()==21;
     }
 
 //    public int getHandScore(){
@@ -80,7 +80,7 @@ public class Player implements IHand {
     public boolean isBust(){
         //change ace stuff here
 
-        return value() > 21;
+        return handValue() > 21;
 
     }
 
@@ -88,13 +88,13 @@ public class Player implements IHand {
         this.hand.add(card);
     }
 
-    public int value(){
+    public int handValue(){
         int score = 0;
         for (Card card : this.hand) {
             score += card.getValue();
         }
         int aceCounter = aceCount();
-        if (score > 21 && aceCounter > 0){
+        while (score > 21 && aceCounter > 0){
             score -= 10;
             aceCounter--;
         }

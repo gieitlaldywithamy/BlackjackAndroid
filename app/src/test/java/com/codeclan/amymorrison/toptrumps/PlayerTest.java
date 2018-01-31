@@ -63,7 +63,7 @@ public class PlayerTest {
         dealer.drawCard(card2);
         dealer.drawCard(ace2);
         dealer.drawCard(card1);
-        assertEquals(3, player.countAces());
+        assertEquals(2, dealer.aceCount());
     }
 
     @Test
@@ -76,7 +76,7 @@ public class PlayerTest {
     public void playerHasValue17(){
         player.drawCard(card1);
         player.drawCard(card3);
-        assertEquals(17, player.calculateHandValue());
+        assertEquals(17, player.handValue());
     }
 
     @Test

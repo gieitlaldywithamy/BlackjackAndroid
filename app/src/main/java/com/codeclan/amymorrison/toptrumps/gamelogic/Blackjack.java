@@ -62,7 +62,7 @@ public class Blackjack {
         else if (player.checkFiveCardTrick()) {
             return player;
         }
-        else if (player.value() >= dealer.value()){
+        else if (player.handValue() >= dealer.handValue()){
             return player;
 
         } else {

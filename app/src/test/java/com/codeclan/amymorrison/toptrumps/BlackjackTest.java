@@ -43,14 +43,14 @@ public class BlackjackTest {
     @Test
     public void canGetPlayerValue(){
         game.initialDeal();
-        assertEquals(22, player.calculateHandValue());
+        assertEquals(12, player.handValue());
 
     }
 
     @Test
     public void canGetHandScore(){
         game.initialDeal();
-        assertEquals(22, player.calculateHandValue());
+        assertEquals(12, player.handValue());
     }
 
     @Test

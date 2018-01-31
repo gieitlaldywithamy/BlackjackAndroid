@@ -40,7 +40,7 @@ public class DealerTest {
 
     @Test
     public void canGetDealerPlayerScore(){
-        assertEquals(0, dealer.calculateHandValue());
+        assertEquals(0, dealer.handValue());
     }
 
     @Test
@@ -65,7 +65,7 @@ public class DealerTest {
     @Test
     public void dealerCanHit(){
         dealer.drawCard(ace1);
-        assertEquals(11, dealer.calculateHandValue());
+        assertEquals(11, dealer.handValue());
     }
 
     @Test

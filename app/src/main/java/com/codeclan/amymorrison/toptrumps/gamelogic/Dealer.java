@@ -28,7 +28,7 @@ public class Dealer extends Player {
     }
 
     public boolean shouldHit() {
-        return value() <= 16;
+        return handValue() <= 16;
     }
 
     public void move() {
