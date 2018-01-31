@@ -22,7 +22,7 @@ public class Blackjack{
     public void newGame(){
         this.player.emptyHand();
         this.dealer.emptyHand();
-        this.player.setBet(0);
+        this.player.newGame();
     }
 
     public Dealer getDealer(){

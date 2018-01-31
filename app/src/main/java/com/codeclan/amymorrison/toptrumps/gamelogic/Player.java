@@ -106,10 +106,16 @@ public class Player {
         return (!isBust() && (this.getPlayerHand().size()) == 5);
     }
 
-    protected void setBet(int bet){
-        this.bet = bet;
-    }
     public int getBet() {
         return this.bet;
+    }
+
+    public int getWinnings() {
+        return this.winnings;
+    }
+
+    public void newGame() {
+        this.bet = 0;
+        this.winnings = 0;
     }
 }

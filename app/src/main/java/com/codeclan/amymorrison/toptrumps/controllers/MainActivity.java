@@ -32,7 +32,6 @@ public class MainActivity extends AppCompatActivity {
     Button standBtn;
     ImageButton playerBetBtn;
     TextView playerBetView;
-    TextView placeBetLabel;
     Toolbar actionBar;
 
     Blackjack blackjack;
@@ -52,7 +51,6 @@ public class MainActivity extends AppCompatActivity {
     TextView cash;
     int dealerHoleCardTrueValue;
     boolean hasDealerRevealedHoleCard;
-    int currentBet;
 
     SharedPreferences sharedPref;
 
@@ -120,9 +118,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void updateToolbar(){
+        int playerBanked = sharedPref.getInt("winnings", 0);
+        SharedPreferences.Editor editor = sharedPref.edit();
+
+        editor.putInt("winnings", playerBanked+player.getWinnings());
+        editor.apply();
+
         int playerCurrentBet = player.getBet();
         int playerWallet = player.getWallet();
-        int playerBanked = sharedPref.getInt("winnings", 0);
+        playerBanked = sharedPref.getInt("winnings", 0);
+
+
 
         playerBetView.setText(String.format("£%d",playerCurrentBet));
         bank.setText(String.format("£%d", playerBanked));
@@ -141,11 +147,9 @@ public class MainActivity extends AppCompatActivity {
             playerHand = player.getPlayerHand();
             dealerHoleCardTrueValue = dealerHand.get(1).setImageUrl(R.drawable.dealer_card_back);
             //only one of these images should be visible right now, but stay the same card, change the resource! confused
-
+            hasDealerRevealedHoleCard = false;
             dealerHandAdapter.refresh(dealerHand);
-            //why am i doing this?
             playerHandAdapter.refresh(playerHand);
-
 
             if (player.hasBlackJack() || dealer.hasBlackJack()) {
                 dealerTurnOverHoleCard();
@@ -154,7 +158,7 @@ public class MainActivity extends AppCompatActivity {
                 hitBtn.setVisibility(View.VISIBLE);
                 standBtn.setVisibility(View.VISIBLE);
             }
-            hasDealerRevealedHoleCard = false;
+
         } else {
             Toast.makeText(MainActivity.this, "Place your bet!",
                     Toast.LENGTH_SHORT).show();
@@ -170,15 +174,9 @@ public class MainActivity extends AppCompatActivity {
         String result = blackjack.whoWon();
         Toast.makeText(MainActivity.this, result, Toast.LENGTH_LONG).show();
         if (winner.equals(player)){
-            int bet = Integer.valueOf(playerBetView.getText().toString().substring(1));
-            int banked = Integer.valueOf(bank.getText().toString().substring(1));
-            player.increaseWinnings(bet*2);
-            cash.setText(String.format(String.format("£%d", player.getWallet())));
-            bank.setText(String.format("£%d",banked+bet));
-            SharedPreferences.Editor editor = sharedPref.edit();
-            int previousWinnings = sharedPref.getInt("winnings", 0);
-            editor.putInt("winnings", previousWinnings+bet);
-            editor.apply();
+
+            player.increaseWinnings((player.getBet()*3/2)+player.getBet());
+            updateToolbar();
         }
 
     }
@@ -211,7 +209,6 @@ public class MainActivity extends AppCompatActivity {
         if (!hasDealerRevealedHoleCard) {
             dealerTurnOverHoleCard();
         }
-        //dealer stands at soft 17
         while (dealer.calculateHandValue() < 17) {
             dealer.drawCard(dealer.dealCard());
             dealerHandAdapter.refresh(dealer.getPlayerHand());
@@ -232,8 +229,5 @@ public class MainActivity extends AppCompatActivity {
         dealerHandAdapter.refresh(dealerHand);
         updateToolbar();
         play.setVisibility(View.VISIBLE);
-
     }
-
-
 }
