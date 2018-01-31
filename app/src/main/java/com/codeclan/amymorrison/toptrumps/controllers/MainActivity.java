@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
     Button doubleBtn;
     TextView playerBetView;
     Toolbar actionBar;
+    DialogInterface.OnClickListener dialogClickListener;
 
     Blackjack blackjack;
     Player player;
@@ -64,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initialiseViews();
-
+        toggleInGameButtons();
 
         blackjack = new Blackjack();
         player = blackjack.getPlayer();
@@ -91,6 +92,7 @@ public class MainActivity extends AppCompatActivity {
         standBtn = findViewById(R.id.stand_btn);
         playerBetBtn = findViewById(R.id.bet_button_view);
         cashOut = findViewById(R.id.cash_out_btn);
+        doubleBtn = findViewById(R.id.double_down_btn);
 
 
         //toolbar
@@ -163,26 +165,27 @@ public class MainActivity extends AppCompatActivity {
             } else {
                 hitBtn.setVisibility(View.VISIBLE);
                 standBtn.setVisibility(View.VISIBLE);
-                DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        switch (which){
-                            case DialogInterface.BUTTON_POSITIVE:
-                                double_down();
-                                hitBtn.performClick();
-                                gameFinish();
-                                break;
-
-                            case DialogInterface.BUTTON_NEGATIVE:
-                                doubleBtn.setVisibility(View.INVISIBLE);
-                                break;
-                        }
-                    }
-                };
-
-                AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
-                builder.setMessage("Double down?").setPositiveButton("Yes", dialogClickListener)
-                        .setNegativeButton("No", dialogClickListener).show();
+                doubleBtn.setVisibility(View.VISIBLE);
+//                DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        switch (which){
+//                            case DialogInterface.BUTTON_POSITIVE:
+//                                double_down();
+//                                hitBtn.performClick();
+//                                gameFinish();
+//                                break;
+//
+//                            case DialogInterface.BUTTON_NEGATIVE:
+//                                //doubleBtn.setVisibility(View.INVISIBLE);
+//                                break;
+//                        }
+//                    }
+//                };
+//
+//                AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+//                builder.setMessage("Double down?").setPositiveButton("Yes", dialogClickListener)
+//                        .setNegativeButton("No", dialogClickListener).show();
             }
 
         } else {
@@ -220,6 +223,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void hit(View view) {
+        doubleBtn.setVisibility(View.INVISIBLE);
         player.drawCard(dealer.dealCard());
         playerHand = player.getPlayerHand();
         playerHandAdapter.refresh(playerHand);
@@ -253,10 +257,10 @@ public class MainActivity extends AppCompatActivity {
         cashOut.setVisibility(View.INVISIBLE);
     }
 
-    public void toggleGameUIButtons(){
-        play.setVisibility(View.INVISIBLE);
+    public void toggleInGameButtons(){
         hitBtn.setVisibility(View.INVISIBLE);
         standBtn.setVisibility(View.INVISIBLE);
+        doubleBtn.setVisibility(View.INVISIBLE);
     }
 
     public void new_game(MenuItem item) {
@@ -282,8 +286,10 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void double_down() {
+    public void double_down(View view) {
         player.raiseBet(player.getBet()*2);
         updateToolbar();
+        hitBtn.performClick();
+        gameFinish();
     }
 }

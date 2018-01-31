@@ -104,5 +104,11 @@ public class PlayerTest {
         assertFalse(player.isBust());
     }
 
+    @Test
+    public void canDoubleDown(){
+        player.drawCard(ace1);
+        player.drawCard(ace2);
+    }
+
 
 }

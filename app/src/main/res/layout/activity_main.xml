@@ -208,5 +208,19 @@
         app:layout_constraintHorizontal_bias="0.487"
         app:layout_constraintStart_toEndOf="@+id/play_btn" />
 
+    <Button
+        android:id="@+id/double_down_btn"
+        android:layout_width="93dp"
+        android:layout_height="59dp"
+        android:layout_marginBottom="272dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:text="Double down"
+        android:onClick="double_down"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.487"
+        app:layout_constraintStart_toEndOf="@+id/bet_button_view" />
+
 
 </android.support.constraint.ConstraintLayout>
