@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * Created by amymorrison on 26/01/2018.
  */
 
-public class Player {
+public class Player implements iPlayer {
 
     protected Hand hand;
     private int handScore;
@@ -112,5 +112,9 @@ public class Player {
 
     public Hand getHand() {
         return this.hand;
+    }
+
+    public void setWinnings(int winnings) {
+        this.winnings = winnings;
     }
 }

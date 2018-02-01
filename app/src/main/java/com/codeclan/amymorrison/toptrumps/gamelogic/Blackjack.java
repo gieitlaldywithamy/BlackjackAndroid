@@ -15,10 +15,10 @@ public class Blackjack {
     private Dealer dealer;
     private Deck deck;
 
-    public Blackjack(){
-        this.player = new Player();
-        this.deck = new Deck();
-        this.dealer = new Dealer(this.deck);
+    public Blackjack(Player player, Dealer dealer){
+        this.player = player;
+        this.dealer = dealer;
+        this.deck = dealer.getDeck();
     }
 
     public void newGame(){

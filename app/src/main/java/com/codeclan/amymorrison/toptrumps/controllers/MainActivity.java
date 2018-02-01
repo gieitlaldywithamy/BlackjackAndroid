@@ -25,6 +25,7 @@ import android.widget.Toast;
 
 import com.codeclan.amymorrison.toptrumps.R;
 import com.codeclan.amymorrison.toptrumps.deck.Card;
+import com.codeclan.amymorrison.toptrumps.deck.Deck;
 import com.codeclan.amymorrison.toptrumps.gamelogic.Blackjack;
 import com.codeclan.amymorrison.toptrumps.gamelogic.Dealer;
 import com.codeclan.amymorrison.toptrumps.gamelogic.Player;
@@ -71,9 +72,12 @@ public class MainActivity extends AppCompatActivity {
         initialiseViews();
         toggleInGameButtons();
 
-        blackjack = new Blackjack();
-        player = blackjack.getPlayer();
-        dealer = blackjack.getDealer();
+        player = new Player();
+        Deck deck = new Deck();
+        dealer = new Dealer(deck);
+        blackjack = new Blackjack(player, dealer);
+//        player = blackjack.getPlayer();
+//        dealer = blackjack.getDealer();
 
         initialiseToolbar();
 
@@ -131,15 +135,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void updateToolbar(){
-        int playerBanked = sharedPref.getInt("winnings", 0);
+        int wonSoFar = sharedPref.getInt("winnings", 0);
         SharedPreferences.Editor editor = sharedPref.edit();
 
-        editor.putInt("winnings", playerBanked+player.getWinnings());
+        editor.putInt("winnings", wonSoFar+player.getWinnings());
         editor.apply();
 
         int playerCurrentBet = player.getBet();
         int playerWallet = player.getWallet();
-        playerBanked = sharedPref.getInt("winnings", 0);
+        int playerBanked = sharedPref.getInt("winnings", 0);
 
 
 
@@ -285,9 +289,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void player_cash_out(MenuItem item) {
         int playerBanked = sharedPref.getInt("winnings", 0);
+        player.setWinnings(0);
         SharedPreferences.Editor editor = sharedPref.edit();
         player.profit(playerBanked);
         editor.putInt("winnings", 0);
+
         editor.apply();
         updateToolbar();
 
