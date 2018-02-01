@@ -11,14 +11,14 @@ import java.util.ArrayList;
 
 public class Player {
 
-    private Hand hand;
+    protected Hand hand;
     private int handScore;
     private int winnings;
     private int wallet;
     private int bet;
 
     public Player(){
-       hand = new Hand();
+       this.hand = new Hand();
        handScore = 0;
        this.winnings = 0;
        this.bet = 0;
@@ -62,6 +62,11 @@ public class Player {
     public boolean isBust(){
         return this.hand.handValue() > 21;
     }
+
+    public void doubleDown(){
+
+    }
+
 
     public void drawCard(Card card){
         this.hand.add(card);

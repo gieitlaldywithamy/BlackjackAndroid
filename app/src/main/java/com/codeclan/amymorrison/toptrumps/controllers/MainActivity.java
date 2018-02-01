@@ -37,7 +37,6 @@ public class MainActivity extends AppCompatActivity {
     Button doubleBtn;
     TextView playerBetView;
     Toolbar actionBar;
-    DialogInterface.OnClickListener dialogClickListener;
 
     Blackjack blackjack;
     Player player;
@@ -153,7 +152,7 @@ public class MainActivity extends AppCompatActivity {
             blackjack.initialDeal();
             dealerHand = dealer.getPlayerHand();
             playerHand = player.getPlayerHand();
-            dealerHoleCardTrueValue = dealerHand.get(1).setImageUrl(R.drawable.dealer_card_back);
+//            dealerHoleCardTrueValue = dealerHand.get(1).setImageUrl(R.drawable.dealer_card_back);
             //only one of these images should be visible right now, but stay the same card, change the resource! confused
             hasDealerRevealedHoleCard = false;
             dealerHandAdapter.refresh(dealerHand);
@@ -213,20 +212,23 @@ public class MainActivity extends AppCompatActivity {
 
     private void dealerTurnOverHoleCard(){
 
-        dealerHand.get(1).setImageUrl(dealerHoleCardTrueValue);
-        dealerHandAdapter.refresh(dealerHand);
+        dealer.turnOverHiddenCard();
 //        //this is always failing - WHYYY
 //        if (dealerHoleCardView.getDrawable() == getResources().getDrawable(R.drawable.dealer_card_back)) {
 
         this.hasDealerRevealedHoleCard = true;
+        dealerHand = dealer.getPlayerHand();
+        dealerHandAdapter.refresh(dealerHand);
     }
 
 
     public void hit(View view) {
         doubleBtn.setVisibility(View.INVISIBLE);
-        player.drawCard(dealer.dealCard());
+        blackjack.playerHit();
         playerHand = player.getPlayerHand();
         playerHandAdapter.refresh(playerHand);
+
+
         if (!hasDealerRevealedHoleCard) {
             dealerTurnOverHoleCard();
         }
@@ -236,11 +238,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void stand(View view) {
-
+        doubleBtn.setVisibility(View.INVISIBLE);
         if (!hasDealerRevealedHoleCard) {
             dealerTurnOverHoleCard();
         }
-        dealer.move();
+        blackjack.playerStand();
 
         dealerHandAdapter.refresh(dealer.getPlayerHand());
 
@@ -290,6 +292,6 @@ public class MainActivity extends AppCompatActivity {
         player.raiseBet(player.getBet()*2);
         updateToolbar();
         hitBtn.performClick();
-        gameFinish();
+        standBtn.performClick();
     }
 }

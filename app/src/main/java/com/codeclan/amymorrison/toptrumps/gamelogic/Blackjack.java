@@ -1,5 +1,7 @@
 package com.codeclan.amymorrison.toptrumps.gamelogic;
 
+import com.codeclan.amymorrison.toptrumps.R;
+import com.codeclan.amymorrison.toptrumps.deck.Card;
 import com.codeclan.amymorrison.toptrumps.gamelogic.Player;
 import com.codeclan.amymorrison.toptrumps.deck.Deck;
 
@@ -33,6 +35,7 @@ public class Blackjack {
         return this.player;
     }
 
+
     public void shuffleDeck(){
         deck.shuffle();
     }
@@ -41,14 +44,17 @@ public class Blackjack {
         player.drawCard(dealer.dealCard());
         dealer.drawCard(dealer.dealCard());
         player.drawCard(dealer.dealCard());
-        dealer.drawCard(dealer.dealCard());
+        dealer.drawHiddenCard(dealer.dealCard());
+
     }
 
     public void playerHit(){
         player.drawCard(dealer.dealCard());
     }
 
-
+    public void playerStand() {
+        dealer.move();
+    }
 
     public Player getWinner() {
         if (player.isBust())
