@@ -103,7 +103,6 @@ public class MainActivity extends AppCompatActivity {
         playerBetBtn = findViewById(R.id.bet_button_view);
         doubleBtn = findViewById(R.id.double_down_btn);
 
-
         //toolbar
         bank = findViewById(R.id.playerBankView);
         cash = findViewById(R.id.playerCashView);
@@ -145,8 +144,6 @@ public class MainActivity extends AppCompatActivity {
         int playerWallet = player.getWallet();
         int playerBanked = sharedPref.getInt("winnings", 0);
 
-
-
         playerBetView.setText(String.format("£%d",playerCurrentBet));
         bank.setText(String.format("£%d", playerBanked));
         cash.setText(String.format("£%d", playerWallet));
@@ -175,6 +172,7 @@ public class MainActivity extends AppCompatActivity {
                 hitBtn.setVisibility(View.VISIBLE);
                 standBtn.setVisibility(View.VISIBLE);
                 doubleBtn.setVisibility(View.VISIBLE);
+
 //                DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
 //                    @Override
 //                    public void onClick(DialogInterface dialog, int which) {
@@ -204,18 +202,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void gameFinish() {
-        hitBtn.setVisibility(View.INVISIBLE);
-        standBtn.setVisibility(View.INVISIBLE);
+
+        toggleInGameButtons();
         play.setVisibility(View.INVISIBLE);
 
         Player winner = blackjack.getWinner();
         String result = winner.toString() + " won!";
         Toast.makeText(MainActivity.this, result, Toast.LENGTH_LONG).show();
-        if (winner.equals(player)){
+        updateToolbar();
 
-            player.increaseWinnings((player.getBet()*3/2)+player.getBet());
-            updateToolbar();
-        }
 
     }
 
@@ -235,12 +230,17 @@ public class MainActivity extends AppCompatActivity {
         doubleBtn.setVisibility(View.INVISIBLE);
         blackjack.playerHit();
         playerHand = player.getPlayerHand();
+        dealerHand = dealer.getPlayerHand();
         playerHandAdapter.refresh(playerHand);
-
-
-        if (!hasDealerRevealedHoleCard) {
-            dealerTurnOverHoleCard();
+        dealerHandAdapter.refresh(dealerHand);
+        if(blackjack.playerWon()){
+            gameFinish();
         }
+//
+//
+//        if (!hasDealerRevealedHoleCard) {
+//            dealerTurnOverHoleCard();
+//        }
         if (player.isBust() || player.hasBlackJack()) {
             gameFinish();
         }

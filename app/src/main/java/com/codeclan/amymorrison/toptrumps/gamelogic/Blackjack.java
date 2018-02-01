@@ -49,7 +49,10 @@ public class Blackjack {
     }
 
     public void playerHit(){
+
         player.drawCard(dealer.dealCard());
+        dealer.turnOverHiddenCard();
+
     }
 
     public void playerStand() {
@@ -60,15 +63,18 @@ public class Blackjack {
         if (player.isBust())
             return dealer;
         else if (dealer.isBust()) {
+            player.increaseWinnings((player.getBet()*3/2)+player.getBet());
             return player;
         }
         else if (dealer.checkFiveCardTrick()){
             return dealer;
         }
         else if (player.checkFiveCardTrick()) {
+            player.increaseWinnings((player.getBet()*3/2)+player.getBet());
             return player;
         }
         else if (player.handValue() >= dealer.handValue()){
+            player.increaseWinnings((player.getBet()*3/2)+player.getBet());
             return player;
 
         } else {
@@ -78,5 +84,9 @@ public class Blackjack {
 
     public void newDeck() {
         this.deck = new Deck();
+    }
+
+    public boolean playerWon() {
+        return (player.isBust() || player.hasBlackJack());
     }
 }
