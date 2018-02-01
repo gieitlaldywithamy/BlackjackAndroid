@@ -56,6 +56,7 @@ public class Blackjack {
     }
 
     public void playerStand() {
+
         dealer.move();
     }
 
@@ -88,5 +89,9 @@ public class Blackjack {
 
     public boolean playerWon() {
         return (player.isBust() || player.hasBlackJack());
+    }
+
+    public boolean anyoneHasBlackjack() {
+        return (player.hasBlackJack() || dealer.hasBlackJack());
     }
 }

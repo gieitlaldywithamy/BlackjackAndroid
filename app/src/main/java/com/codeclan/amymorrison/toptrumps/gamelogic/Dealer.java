@@ -35,6 +35,7 @@ public class Dealer extends Player {
     }
 
     public void move() {
+        turnOverHiddenCard();
         while (shouldHit()){
             drawCard(dealCard());
         }

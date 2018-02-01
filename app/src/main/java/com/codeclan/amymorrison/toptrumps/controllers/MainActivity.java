@@ -59,8 +59,6 @@ public class MainActivity extends AppCompatActivity {
     GridView dealerCardDisplay;
     TextView bank;
     TextView cash;
-    int dealerHoleCardTrueValue;
-    boolean hasDealerRevealedHoleCard;
 
     SharedPreferences sharedPref;
 
@@ -76,8 +74,6 @@ public class MainActivity extends AppCompatActivity {
         Deck deck = new Deck();
         dealer = new Dealer(deck);
         blackjack = new Blackjack(player, dealer);
-//        player = blackjack.getPlayer();
-//        dealer = blackjack.getDealer();
 
         initialiseToolbar();
 
@@ -157,42 +153,18 @@ public class MainActivity extends AppCompatActivity {
 
             blackjack.shuffleDeck();
             blackjack.initialDeal();
+
             dealerHand = dealer.getPlayerHand();
             playerHand = player.getPlayerHand();
-//            dealerHoleCardTrueValue = dealerHand.get(1).setImageUrl(R.drawable.dealer_card_back);
-            //only one of these images should be visible right now, but stay the same card, change the resource! confused
-            hasDealerRevealedHoleCard = false;
             dealerHandAdapter.refresh(dealerHand);
             playerHandAdapter.refresh(playerHand);
 
-            if (player.hasBlackJack() || dealer.hasBlackJack()) {
-                dealerTurnOverHoleCard();
+            if (blackjack.anyoneHasBlackjack()) {
                 gameFinish();
             } else {
                 hitBtn.setVisibility(View.VISIBLE);
                 standBtn.setVisibility(View.VISIBLE);
                 doubleBtn.setVisibility(View.VISIBLE);
-
-//                DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        switch (which){
-//                            case DialogInterface.BUTTON_POSITIVE:
-//                                double_down();
-//                                hitBtn.performClick();
-//                                gameFinish();
-//                                break;
-//
-//                            case DialogInterface.BUTTON_NEGATIVE:
-//                                //doubleBtn.setVisibility(View.INVISIBLE);
-//                                break;
-//                        }
-//                    }
-//                };
-//
-//                AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
-//                builder.setMessage("Double down?").setPositiveButton("Yes", dialogClickListener)
-//                        .setNegativeButton("No", dialogClickListener).show();
             }
 
         } else {
@@ -214,18 +186,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void dealerTurnOverHoleCard(){
-
-        dealer.turnOverHiddenCard();
-//        //this is always failing - WHYYY
-//        if (dealerHoleCardView.getDrawable() == getResources().getDrawable(R.drawable.dealer_card_back)) {
-
-        this.hasDealerRevealedHoleCard = true;
-        dealerHand = dealer.getPlayerHand();
-        dealerHandAdapter.refresh(dealerHand);
-    }
-
-
     public void hit(View view) {
         doubleBtn.setVisibility(View.INVISIBLE);
         blackjack.playerHit();
@@ -236,32 +196,18 @@ public class MainActivity extends AppCompatActivity {
         if(blackjack.playerWon()){
             gameFinish();
         }
-//
-//
-//        if (!hasDealerRevealedHoleCard) {
-//            dealerTurnOverHoleCard();
-//        }
-        if (player.isBust() || player.hasBlackJack()) {
-            gameFinish();
-        }
     }
 
     public void stand(View view) {
         doubleBtn.setVisibility(View.INVISIBLE);
-        if (!hasDealerRevealedHoleCard) {
-            dealerTurnOverHoleCard();
-        }
         blackjack.playerStand();
-
         dealerHandAdapter.refresh(dealer.getPlayerHand());
-
         gameFinish();
     }
 
     public void raiseBet(View view) {
         player.raiseBet(5);
-        playerBetBtn.startAnimation(animation);
-
+        //playerBetBtn.startAnimation(animation);
         updateToolbar();
     }
 
@@ -296,7 +242,6 @@ public class MainActivity extends AppCompatActivity {
 
         editor.apply();
         updateToolbar();
-
 
     }
 
