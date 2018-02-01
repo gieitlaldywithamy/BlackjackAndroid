@@ -1,10 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
     <menu xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/cash_out_menu_btn"
+        android:icon="@drawable/cash_out"
+        android:title="@string/bet"
+        android:onClick="player_cash_out"
+        app:showAsAction="always" />
+
         <item
             android:id="@+id/checkBet"
             android:icon="@drawable/bet_chip"
-            android:title="@string/bet"
+            android:title="cash out"
             android:onClick="new_game"
             app:showAsAction="always" />
+
+
     </menu>

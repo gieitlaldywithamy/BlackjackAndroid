@@ -12,13 +12,16 @@ import java.util.ArrayList;
 public class Hand {
 
     protected ArrayList<Card> cards;
+    private boolean isSplit;
 
     public Hand(){
         this.cards = new ArrayList<>();
+        this.isSplit = false;
     }
     public ArrayList<Card> getCards() {
         return this.cards;
     }
+
 
     public boolean handContainsAce(){
         boolean containsAce = false;
@@ -53,5 +56,9 @@ public class Hand {
 
     public void add(Card card) {
         this.cards.add(card);
+    }
+
+    public int cardCount() {
+        return this.cards.size();
     }
 }

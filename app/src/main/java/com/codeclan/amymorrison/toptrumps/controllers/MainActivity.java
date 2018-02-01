@@ -3,6 +3,8 @@ package com.codeclan.amymorrison.toptrumps.controllers;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.TransitionDrawable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,6 +14,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageButton;
@@ -32,7 +36,8 @@ public class MainActivity extends AppCompatActivity {
     Button play;
     Button hitBtn;
     Button standBtn;
-    Button cashOut;
+    Animation animation;
+
     ImageButton playerBetBtn;
     Button doubleBtn;
     TextView playerBetView;
@@ -80,6 +85,8 @@ public class MainActivity extends AppCompatActivity {
         playerCardListDisplay.setAdapter(playerHandAdapter);
         playerCardListDisplay.setLayoutManager(layoutManager);
         playerCardListDisplay.setNestedScrollingEnabled(false);
+        animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_up);
+        animation.setFillAfter(true);
 
     }
 
@@ -90,7 +97,6 @@ public class MainActivity extends AppCompatActivity {
         hitBtn = findViewById(R.id.hit_btn);
         standBtn = findViewById(R.id.stand_btn);
         playerBetBtn = findViewById(R.id.bet_button_view);
-        cashOut = findViewById(R.id.cash_out_btn);
         doubleBtn = findViewById(R.id.double_down_btn);
 
 
@@ -205,7 +211,6 @@ public class MainActivity extends AppCompatActivity {
 
             player.increaseWinnings((player.getBet()*3/2)+player.getBet());
             updateToolbar();
-            cashOut.setVisibility(View.VISIBLE);
         }
 
     }
@@ -251,12 +256,13 @@ public class MainActivity extends AppCompatActivity {
 
     public void raiseBet(View view) {
         player.raiseBet(5);
+        playerBetBtn.startAnimation(animation);
+
         updateToolbar();
     }
 
     public void toggleMoneyButtonsVisiblity(){
         playerBetBtn.setVisibility(View.INVISIBLE);
-        cashOut.setVisibility(View.INVISIBLE);
     }
 
     public void toggleInGameButtons(){
@@ -266,6 +272,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void new_game(MenuItem item) {
+        toggleInGameButtons();
         blackjack.newGame();
         playerHand = player.getPlayerHand();
         dealerHand = dealer.getPlayerHand();
@@ -276,8 +283,7 @@ public class MainActivity extends AppCompatActivity {
         playerBetBtn.setVisibility(View.VISIBLE);
     }
 
-    public void player_cash_out(View view) {
-        cashOut.setVisibility(View.INVISIBLE);
+    public void player_cash_out(MenuItem item) {
         int playerBanked = sharedPref.getInt("winnings", 0);
         SharedPreferences.Editor editor = sharedPref.edit();
         player.profit(playerBanked);
@@ -289,7 +295,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void double_down(View view) {
-        player.raiseBet(player.getBet()*2);
+        player.doubleDown();
+
         updateToolbar();
         hitBtn.performClick();
         standBtn.performClick();

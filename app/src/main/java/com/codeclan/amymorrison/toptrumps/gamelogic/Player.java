@@ -64,7 +64,7 @@ public class Player {
     }
 
     public void doubleDown(){
-
+        raiseBet(getBet());
     }
 
 
@@ -98,6 +98,16 @@ public class Player {
     public void profit(int playerBanked) {
 
         this.wallet += playerBanked;
+    }
+
+    public boolean canSplit(){
+        if (this.hand.cardCount()==2){
+            if (this.hand.getCards().get(0).getRank().equals(this.hand.getCards().get(1).getRank())){
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public Hand getHand() {
