@@ -59,7 +59,12 @@ public class DealerCardAdapter extends BaseAdapter {
 
         Card currentCard = cards.get(position);
         dealerCardView = gridItemView.findViewById(R.id.dealer_card_image_view);
-        dealerCardView.setImageResource(currentCard.getImageUrl());
+
+        int drawable = mContext.getResources().getIdentifier(currentCard.toFileString(), "drawable", mContext.getPackageName());
+        dealerCardView.setImageResource(drawable);
+
+
+//        dealerCardView.setImageResource(currentCard.getImageUrl());
         return dealerCardView;
     }
 }

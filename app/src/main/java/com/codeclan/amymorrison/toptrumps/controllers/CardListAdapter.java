@@ -20,8 +20,10 @@ import java.util.ArrayList;
 public class CardListAdapter extends RecyclerView.Adapter<CardListAdapter.ViewHolder> {
     private ArrayList<Card> cards;
     private LayoutInflater mInflator;
+    private Context context;
     public CardListAdapter(Context context, ArrayList<Card> cardList) {
         this.cards = cardList;
+        this.context = context;
         Log.d(getClass().toString(), Integer.toString(this.cards.size()));
         this.mInflator = LayoutInflater.from(context);
     }
@@ -41,7 +43,8 @@ public class CardListAdapter extends RecyclerView.Adapter<CardListAdapter.ViewHo
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Card currentCard = cards.get(position);
-        holder.cardImageView.setImageResource(currentCard.getImageUrl());
+        int drawable = context.getResources().getIdentifier(currentCard.toFileString(), "drawable", context.getPackageName());
+        holder.cardImageView.setImageResource(drawable);
     }
 
     public void refresh(ArrayList<Card> cards)

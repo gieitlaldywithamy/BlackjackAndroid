@@ -6,7 +6,7 @@ package com.codeclan.amymorrison.toptrumps.deck;
 
 public enum Rank {
 
-    ACE(11),
+
     TWO(2),
     THREE(3),
     FOUR(4),
@@ -18,7 +18,8 @@ public enum Rank {
     TEN(10),
     JACK(10),
     QUEEN(10),
-    KING(10);
+    KING(10),
+    ACE(11);
 
     private final int value;
 

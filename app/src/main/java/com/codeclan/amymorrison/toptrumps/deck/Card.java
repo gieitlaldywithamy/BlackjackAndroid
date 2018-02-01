@@ -8,19 +8,16 @@ public class Card {
 
     private Suit suit;
     private Rank rank;
-    private int imageId;
-    private boolean isAce;
+//    private int imageId;
+//    private boolean isAce;
 
-    public Card(Suit suit, Rank rank, CardImage imageRef) {
+    public Card(Suit suit, Rank rank) {
         this.suit = suit;
         this.rank = rank;
         this.imageId = imageRef.getImageId();
         this.isAce = this.rank == Rank.ACE;
     }
-    public Card(Suit suit, Rank rank) {
-        this.suit = suit;
-        this.rank = rank;
-    }
+
 
 
     public Suit getSuit() {
@@ -31,16 +28,27 @@ public class Card {
         return this.rank;
     }
 
-    public int getImageUrl(){
-        return this.imageId;
+    public String toFileString(){
+        String fileRef = "";
+        if (rank.ordinal() < 9){
+            fileRef = rank.toString().toLowerCase() + suit.toString().toLowerCase();
+        } else {
+            fileRef = rank.toString().toLowerCase() + "_of" + suit.toString().toLowerCase();
+        }
+
+        return fileRef;
     }
 
-    public int setImageUrl(int drawableID) {
-        int realCardValue = getImageUrl();
-        this.imageId = drawableID;
-        return realCardValue;
-    }
-
+//    public int getImageUrl(){
+//        return this.imageId;
+//    }
+//
+//    public int setImageUrl(int drawableID) {
+//        int realCardValue = getImageUrl();
+//        this.imageId = drawableID;
+//        return realCardValue;
+//    }
+//
     public int getValue() {
         return this.rank.getValue();
     }
