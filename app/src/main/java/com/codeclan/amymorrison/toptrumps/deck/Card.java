@@ -8,10 +8,10 @@ public class Card {
 
     private Suit suit;
     private Rank rank;
-//    private int imageId;
-//    private boolean isAce;
+    private int imageId;
+    private boolean isAce;
 
-    public Card(Suit suit, Rank rank) {
+    public Card(Suit suit, Rank rank, CardImage imageRef) {
         this.suit = suit;
         this.rank = rank;
         this.imageId = imageRef.getImageId();
@@ -39,15 +39,15 @@ public class Card {
         return fileRef;
     }
 
-//    public int getImageUrl(){
-//        return this.imageId;
-//    }
-//
-//    public int setImageUrl(int drawableID) {
-//        int realCardValue = getImageUrl();
-//        this.imageId = drawableID;
-//        return realCardValue;
-//    }
+    public int getImageUrl(){
+        return this.imageId;
+    }
+
+    public int setImageUrl(int drawableID) {
+        int realCardValue = getImageUrl();
+        this.imageId = drawableID;
+        return realCardValue;
+    }
 //
     public int getValue() {
         return this.rank.getValue();

@@ -24,7 +24,7 @@ public class Deck {
         for (Rank rank: Rank.values()) {
             for (Suit suit: Suit.values()){
                 CardImage imageUrl = CardImage.values()[i];
-                Card newCard = new Card(suit, rank);
+                Card newCard = new Card(suit, rank, imageUrl);
                 cardDeck.add(newCard);
                 i++;
             }

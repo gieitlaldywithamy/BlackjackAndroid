@@ -42,17 +42,17 @@ public class Dealer extends Player {
     }
 
     public void turnOverHiddenCard(){
-//        System.out.println(this.hand.cards.get(1).getImageUrl());
-//        this.hand.cards.get(1).setImageUrl(this.holeCardDrawable);
+        System.out.println(this.hand.cards.get(1).getImageUrl());
+        this.hand.cards.get(1).setImageUrl(this.holeCardDrawable);
     }
 
     public void drawHiddenCard(Card card){
 //        Card holeCard = this.cards.get(1);
-//        this.holeCardDrawable = card.getImageUrl();
-//        this.holeCard = card;
-//        card.setImageUrl(R.drawable.dealer_card_back);
-//        System.out.println(card);
-//        System.out.println(this.hand.getCards().size());
+        this.holeCardDrawable = card.getImageUrl();
+        this.holeCard = card;
+        card.setImageUrl(R.drawable.dealer_card_back);
+        System.out.println(card);
+        System.out.println(this.hand.getCards().size());
         this.hand.add(card);
 
     }
